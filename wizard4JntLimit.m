@@ -28,9 +28,9 @@ function dataCollection_config_customized_str = wizard4JntLimit(ARM_NAME, SN)
     config.SN = SN;
 
     % dVRK ARM API
-    mtm_arm = mtm(ARM_NAME);
+    mtm_arm = arm(ARM_NAME);
     joint_origin_pose = [0,0,0,0,0,0,0];
-    mtm_arm.move_joint(deg2rad(joint_origin_pose));
+    mtm_arm.move_jp(deg2rad(joint_origin_pose));
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % prevent hitting front plane of environment
@@ -134,7 +134,7 @@ function dataCollection_config_customized_str = wizard4JntLimit(ARM_NAME, SN)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % close the draw window
     close(gcf);
-    mtm_arm.move_joint(deg2rad(joint_origin_pose));
+    mtm_arm.move_jp(deg2rad(joint_origin_pose));
    
     % store data
     save_path = fullfile('data', [ARM_NAME, '_',SN], 'real');
@@ -147,6 +147,8 @@ function dataCollection_config_customized_str = wizard4JntLimit(ARM_NAME, SN)
     fwrite(fid, jsonStr);
     fclose(fid);
     fprintf('Save config file for dataCollection to %s\n', dataCollection_config_customized_str);
+    
+    delete(mtm_arm);
 end
 
 function [customized_value, current_pos] = wizard_move_one_joint(mtm_arm,...
@@ -171,7 +173,7 @@ function [customized_value, current_pos] = wizard_move_one_joint(mtm_arm,...
     lastsize = 0;
     while (true)
         joint_pos(MovingJoint_No) = customized_value;
-        mtm_arm.move_joint(deg2rad(joint_pos));
+        mtm_arm.move_jp(deg2rad(joint_pos));
         
         while (~strcmp(input_str,'i') && ~strcmp(input_str,'d') && ~strcmp(input_str,'r') && ~strcmp(input_str,'f'))
             fprintf(repmat('\b', 1, lastsize));
@@ -213,7 +215,7 @@ function [customized_value, current_pos] = wizard_move_two_joint(mtm_arm,...
     input_str = '';
 %     fprintf('Setting Hard limit for when collecting data of Joint#%d\n', 3);
     disp('Moving to init pose');
-%     mtm_arm.move_joint(deg2rad(joint_init_pos));
+%     mtm_arm.move_jp(deg2rad(joint_init_pos));
     customized_value = joint_init_pos(MovingJointNo);
     joint_pos = joint_init_pos;
     fprintf('Instruction: \n');
@@ -230,7 +232,7 @@ function [customized_value, current_pos] = wizard_move_two_joint(mtm_arm,...
     while (true)
         joint_pos(MovingJointNo) = customized_value;
         joint_pos(FollowJointNo) = couple_contraint - joint_pos(MovingJointNo);
-        mtm_arm.move_joint(deg2rad(joint_pos));
+        mtm_arm.move_jp(deg2rad(joint_pos));
         
         % command dialog
         while (~strcmp(input_str,'i') && ~strcmp(input_str,'d') && ~strcmp(input_str,'r') && ~strcmp(input_str,'f'))
@@ -283,7 +285,7 @@ function collision_checking(config)
 
     % create mtm_arm obj and move every arm in home joint position
     mtm_arm = mtm(ARM_NAME);
-    mtm_arm.move_joint([0,0,0,0,0,0,0]);
+    mtm_arm.move_jp([0,0,0,0,0,0,0]);
 
     config_joint_list = setting_dataCollection(config,...
                                                input_data_path);
@@ -302,7 +304,7 @@ function collision_checking(config)
                               current_progress,...
                               one_data_progress_increment);
     end
-    mtm_arm.move_joint([0,0,0,0,0,0,0]);
+    mtm_arm.move_jp([0,0,0,0,0,0,0]);
 
 end
 

@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % modify the following setting for you dVRK
 ARM_NAME = 'MTML'
-SN = '41878'
+SN = '22713'
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % wizard program to identify the custom joint limits for specific MTM
@@ -34,7 +34,7 @@ if ~exist(pivot_points_path_test, 'dir')
 end
 save(fullfile(pivot_points_path_test, 'desired_pivot_points.mat'), 'config_mat' ,'N_test');
 
-% collision checking for safety during data collection. 
+% collision checking for safety during data collection.
 % It ensure MTM in long data collection process not to hit environment once it passes.
 safeCollisionCheck(config_mat_safeCheck, ARM_NAME);
 
@@ -42,7 +42,7 @@ safeCollisionCheck(config_mat_safeCheck, ARM_NAME);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % % collect training data, about 4 hour.
 
-% in non-reverse order 
+% in non-reverse order
 is_reverse = false;
 [current_position, desired_effort] = collect_data(ARM_NAME,...
                             fullfile(pivot_points_path_train, 'desired_pivot_points.mat'), is_reverse); % 2 hour
@@ -61,7 +61,7 @@ save(fullfile(save_path, 'joint_tor_reverse'),'desired_effort');
 % collect validating data
 is_reverse = false;
 [current_position, desired_effort] = collect_data(ARM_NAME,...
-                            fullfile(pivot_points_path_validate, 'desired_pivot_points.mat'), is_reverse); 
+                            fullfile(pivot_points_path_validate, 'desired_pivot_points.mat'), is_reverse);
 save_path = fullfile('data', [ARM_NAME, '_',SN], 'real', 'random', ['N',int2str(N_validate)],'raw_data');
 save(fullfile(save_path, 'joint_pos'),'current_position');
 save(fullfile(save_path, 'joint_tor'),'desired_effort');
@@ -70,11 +70,10 @@ save(fullfile(save_path, 'joint_tor'),'desired_effort');
 % collect testing data
 is_reverse = false;
 [current_position, desired_effort] = collect_data(ARM_NAME,...
-                            fullfile(pivot_points_path_test, 'desired_pivot_points.mat'), is_reverse); 
+                            fullfile(pivot_points_path_test, 'desired_pivot_points.mat'), is_reverse);
 save_path = fullfile('data', [ARM_NAME, '_',SN], 'real', 'random', ['N',int2str(N_test)],'raw_data');
 save(fullfile(save_path, 'joint_pos'),'current_position');
 save(fullfile(save_path, 'joint_tor'),'desired_effort');
-
 
 
 % data processsing
@@ -89,13 +88,3 @@ rawdataProcess(root_path, is_dual);
 root_path =  fullfile('data', [ARM_NAME, '_',SN], 'real', 'random', ['N',int2str(N_test)]);
 is_dual = false;
 rawdataProcess(root_path, is_dual);
-
-
-
-
-
-
-
-
-
-
