@@ -139,7 +139,7 @@ def loop_func(train_data_path, test_data_path, use_net, robot, train_type='BP', 
 
 ### setting
 ARM_NAME = "MTML"
-SN = "41878"
+SN = "22723"
 ########
 
 load_PTM_param_path = join("data",  ARM_NAME+'_'+SN, "real", "gc-"+ARM_NAME+"-"+SN +".json")

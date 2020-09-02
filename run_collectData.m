@@ -3,7 +3,7 @@
 % ARM_NAME(str): 'MTML' or 'MTMR'
 % SN(SN): '12345' (for example)
 ARM_NAME = 'MTML';
-SN = '22713';
+SN = '22723';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 fprintf('running run_collectDatat program..\n')
