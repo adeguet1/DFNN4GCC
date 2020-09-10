@@ -137,12 +137,12 @@ def loop_func(train_data_path, test_data_path, use_net, robot, train_type='BP', 
 #################################################################################
 # train real MTM
 
-### setting
+################### User Setting ###############################
 ARM_NAME = "MTML"
 SN = "22723"
 ########
 
-load_PTM_param_path = join("data",  ARM_NAME+'_'+SN, "real", "gc-"+ARM_NAME+"-"+SN +".json")
+load_PTM_param_file_str = join("data",  ARM_NAME+'_'+SN, "real", "gc-"+ARM_NAME+"-"+SN +".json")
 train_data_path = join(".", "data", ARM_NAME+'_'+SN, "real", "uniform", "N4", 'D6_SinCosInput', "dual")
 valid_data_path = join(".", "data", ARM_NAME+'_'+SN, "real", "random",  "N160", 'D6_SinCosInput')
 test_data_path = join(".", "data", ARM_NAME+'_'+SN, "real", "random", "N40",'D6_SinCosInput')

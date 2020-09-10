@@ -16,16 +16,17 @@ from AnalyticalModel import *
 import pdb
 from Controller import Controller
 
-#####################################
+################### User Setting ##################
 # settings
-MTM_ARM = 'MTMR'
-SN = '31519'
+MTM_ARM = 'MTML'
+SN = '22723'
 
 
-# controller_type = 'LfS' # Learn-from-Sratch approach
-#controller_type = 'PKD' # Physical Knowledge Distillation
-controller_type = 'PTM' # Physical Teacher Model
+controller_type = 'LfS' # Learn-from-Sratch approach
+# controller_type = 'PKD' # Physical Knowledge Distillation
+# controller_type = 'PTM' # Physical Teacher Model
 
+#####################################################################3
 
 
 use_net = 'ReLU_Dual_UDirection'
